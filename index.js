@@ -10,7 +10,8 @@ const LaunchRequestHandler = {
         return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
     },
     handle(handlerInput) {
-        const speechText = 'Welcome to the Alexa Skills Kit, you can say hello!';i
+        console.log("Got launch intent")
+        const speechText = 'Welcome to the Alexa Skills Kit, you can say hello!';
         return handlerInput.responseBuilder
             .speak(speechText)
             .reprompt(speechText)
@@ -25,10 +26,12 @@ const HelloWorldIntentHandler = {
             && handlerInput.requestEnvelope.request.intent.name === 'HelloWorldIntent';
     },
     handle(handlerInput) {
-        const speechText = 'Hello World!';
+        console.log("Got hello world intent")
+        const speechText = 'How can I help you?';
         return handlerInput.responseBuilder
             .speak(speechText)
-            .withSimpleCard('Hello World', speechText)
+            .reprompt("Thanks for invoking")
+            .withSimpleCard('How can I help you?', speechText)
             .getResponse();
     }
 };
@@ -39,6 +42,7 @@ const HelpIntentHandler = {
             && handlerInput.requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
     },
     handle(handlerInput) {
+        console.log("Got help intent")
         const speechText = 'You can say hello to me!';
         return handlerInput.responseBuilder
             .speak(speechText)
@@ -55,6 +59,7 @@ const CancelAndStopIntentHandler = {
                 || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.StopIntent');
     },
     handle(handlerInput) {
+        console.log("Got cancel/stop intent")
         const speechText = 'Goodbye!';return handlerInput.responseBuilder
             .speak(speechText)
             .withSimpleCard('Hello World', speechText)
@@ -67,6 +72,7 @@ const SessionEndedRequestHandler = {
         return handlerInput.requestEnvelope.request.type === 'SessionEndedRequest';
     },
     handle(handlerInput) {
+        console.log("Got session end intent")
         //any cleanup logic goes here
 	return handlerInput.responseBuilder.getResponse();
     }
@@ -77,6 +83,7 @@ const ErrorHandler = {
       return true;
     },
     handle(handlerInput, error) {
+        console.log("Got error intent")
       console.log(`Error handled: ${error.message}`);return handlerInput.responseBuilder
         .speak('Sorry, I can\'t understand the command. Please say again.')
         .reprompt('Sorry, I can\'t understand the command. Please say again.')
